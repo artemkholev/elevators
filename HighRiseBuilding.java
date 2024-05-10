@@ -24,7 +24,7 @@ public class HighRiseBuilding {
 
         // если лифт имеет быстрее может добраться до пассажиров, при условии, что они есть можно изменить состояние
         // есть 2 варианта, лифт стоял или двигался
-        if (!passengers.isEmpty() && elevator.getOrientation() == 0) {
+        if (!passengers.isEmpty()) {
             startElevator(elevator);
         }
 
@@ -35,7 +35,7 @@ public class HighRiseBuilding {
         }
     }
 
-    private void updateRequests(Elevator elevator) {
+    private synchronized void updateRequests(Elevator elevator) {
         final int orientationElevator = elevator.getOrientation();
         final int goalOrientationElevator = elevator.getOrientationGoal();
 
@@ -43,13 +43,10 @@ public class HighRiseBuilding {
             return;
         }
 
-        if (orientationElevator != goalOrientationElevator && elevator.getTarget() != elevator.getPosition()) {
-            return;
-        }
-
         for (int index = 0; index < passengers.size(); index++) {
-            if ((passengers.get(index).getOrientationGoal() == orientationElevator || elevator.getTarget() == elevator.getPosition())
-            ) {
+            if ((passengers.get(index).getOrientationGoal() == orientationElevator || elevator.getPosition() == elevator.getTarget()) &&
+                (passengers.get(index).getPosition() <= elevator.getPosition() && orientationElevator == -1
+                || passengers.get(index).getPosition() >= elevator.getPosition() && orientationElevator == 1)) {
                 if (!elevator.getQueuePassengers().containsKey(passengers.get(index).getPosition()))  {
                     elevator.getQueuePassengers().put(passengers.get(index).getPosition(), new ArrayList<>());
                 }
