@@ -54,7 +54,7 @@ public class Request {
     }
 
     public static void generatePassenger() {
-        int position = 5; //getRandomFloor();
+        int position = getRandomFloor();
         int target = getRandomFloor();
         int weight = getRandomWeight();
 

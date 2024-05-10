@@ -43,14 +43,12 @@ public class HighRiseBuilding {
             return;
         }
 
-        if (orientationElevator != goalOrientationElevator) {
+        if (orientationElevator != goalOrientationElevator && elevator.getTarget() != elevator.getPosition()) {
             return;
         }
 
         for (int index = 0; index < passengers.size(); index++) {
-            if (passengers.get(index).getOrientationGoal() == orientationElevator &&
-                    (passengers.get(index).getPosition() <= elevator.getPosition() && orientationElevator == -1
-                            || passengers.get(index).getPosition() >= elevator.getPosition() && orientationElevator == 1)
+            if ((passengers.get(index).getOrientationGoal() == orientationElevator || elevator.getTarget() == elevator.getPosition())
             ) {
                 if (!elevator.getQueuePassengers().containsKey(passengers.get(index).getPosition()))  {
                     elevator.getQueuePassengers().put(passengers.get(index).getPosition(), new ArrayList<>());

@@ -110,7 +110,6 @@ public class Elevator {
         List<Request> requests = elevator.getQueuePassengers().get(elevator.getPosition());
 
         for (int index = 0; index < requests.size(); index++) {
-            int passengersWeight = requests.get(index).getWeight();
 
             if (!elevator.checkCountPeople()) {
                 System.out.println("П-" + requests.get(index).getId() + " не смог зайти, лифт заполнен");
