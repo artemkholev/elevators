@@ -1,10 +1,11 @@
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Request {
+    private short id;
     private int target, position;
     private int weight;
-    private short id, orientationGoal;
-    static short idPassenger = 0;
+    private short orientationGoal;
+    static short id_p = 0;
 
     public Request(int currentFloor, int targetFloor, short id, int weight) {
         this.id = id;
@@ -62,9 +63,9 @@ public class Request {
             target = getRandomFloor();
         }
 
-        idPassenger++;
-        Request request = new Request(position, target, idPassenger, weight);
+        id_p++;
+        Request request = new Request(position, target, id_p, weight);
         HighRiseBuilding.passengers.add(request);
-        System.out.println("П-" + idPassenger + " на этаже " + position);
+        System.out.println("П-" + id_p + " на этаже " + position);
     }
 }
